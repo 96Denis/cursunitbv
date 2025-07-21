@@ -36,10 +36,10 @@ jobs:
       
 
       # Runs a single command using the runners shell
-      - name: Change directory to terraform project
-        run: cd Terraform
+      #- name: Change directory to terraform project
+       # run: cd Terraform
 
-      - name: Terraform Init
+      - name: Run Terraform Init
         run: terraform init
 
       - name: Run Terraform Plan
