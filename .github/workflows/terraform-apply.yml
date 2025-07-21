@@ -4,12 +4,13 @@ name: Terraform actions workflow
 
 # Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the "github.tf" branch
   push:
     branches: [ "github_tf" ]
-    paths:
-      - 'terraform/**'
-    paths-ignore:
-      - '.github/workflows/**'
+#  pull_request:
+#    branches: [ "main" ]
+  
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -38,15 +39,11 @@ jobs:
       #- name: Change directory to terraform project
        # run: cd Terraform
 
-      - name: Run Terraform init
-        run: |
-          cd terraform
-          terraform init
+      - name: Run Terraform Init
+        run: terraform init
 
-      - name: Run Terraform plan
-        run: |
-          cd terraform
-          terraform plan
+      - name: Run Terraform Plan
+        run: terraform plan
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
