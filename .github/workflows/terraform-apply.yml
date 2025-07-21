@@ -1,14 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Terraform actions workflow
+name: Github actions workflow to apply terraform plan
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "github.tf" branch
+  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "github_tf" ]
-#  pull_request:
-#   branches: [ "main" ]
+   branches: [ "github_tf" ]
   
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,17 +31,20 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
         name: Setup Terraform
-      
 
-      # Runs a single command using the runners shell
-      #- name: Change directory to terraform project
-       # run: cd Terraform
+      # # Runs a single command using the runners shell
+      # - name: Change directory to terraform project
+      #   run: cd terraform
 
-      - name: Run Terraform Init
-        run: terraform init
+      - name: Run Terraform init
+        run: |
+          cd terraform
+          terraform init
 
-      - name: Run Terraform Plan
-        run: terraform plan
+      - name: Run Terraform plan
+        run: |
+          cd terraform
+          terraform plan
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
